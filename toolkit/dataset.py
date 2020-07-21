@@ -3,8 +3,14 @@ import pandas as pd
 
 
 class DatasetClass:
-    def __init__(self, data_path):
+    def __init__(self, data_path, norm_data:bool=False):
         self.path = data_path
+        if norm_data:
+            self.x_label = "nx"
+            self.y_label = "ny"
+        else:
+            self.x_label = "x"
+            self.y_label = "y"
     
     def __reflect_index(self, data, index):
         if index != None:
@@ -12,8 +18,8 @@ class DatasetClass:
         return data
         
     def __load_df(self, data_label):
-        data_x = pd.read_csv(f"{self.path}/{data_label}_x.csv", index_col=0)
-        data_y = pd.read_csv(f"{self.path}/{data_label}_y.csv", index_col=0)
+        data_x = pd.read_csv(f"{self.path}/{data_label}_{self.x_label}.csv", index_col=0)
+        data_y = pd.read_csv(f"{self.path}/{data_label}_{self.y_label}.csv", index_col=0)
         return data_x, data_y
     
     def __load_data(self, data_label, x_index, y_index):
